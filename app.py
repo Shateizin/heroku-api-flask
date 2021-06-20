@@ -11,9 +11,9 @@ def consul_cpf(cpf):
 	url = requests.get(f"http://3.223.192.184/CPF/api.php?lista={cpf}").text
 	soup = bs(url, 'html.parser')
 	if url == "":
-		return "CPF: NÃO VALIDO"
+		return "{'status': 'NÃO VALIDO'}"
 	else:
-		return 'CPF: EXISTENTE'
+		return "{'status': 'EXISTENTE'}"
 
 def main():
 	port = int(os.environ.get("PORT", 5000))
