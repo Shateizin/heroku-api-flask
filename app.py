@@ -15,7 +15,7 @@ def consul_cpf(cpf):
 	else:
 		resul = soup.find("b").text
 		resul = resul.replace("NOME", "").replace("CONSULTADO COM SUCESSO", "").replace("➜", "").replace("|", "").replace("SEXO", "").replace("NASCIMENTO", "").replace(":", "").replace("IDADE", "").replace("CPF", "").replace("DATA DA CONSULTA", "").replace("Seg", "").replace("MASCULINO", "").replace("3", "").replace("2", "").replace("/", "").replace("1", "").replace("4", "").replace("5", "").replace("6", "").replace("7", "").replace("8", "").replace("9", "").replace("FEMININO", "").replace("0", "")
-		return f"{'status': 'EXISTENTE', 'nome': {resul}}"
+		return "{'status': 'EXISTENTE', 'nome': '" + resul + "'}"
 
 def main():
 	port = int(os.environ.get("PORT", 5000))
