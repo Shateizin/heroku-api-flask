@@ -8,14 +8,13 @@ CORS(app)
 
 @app.route('/cp/<string:cpf>/')
 def consul_cpf(cpf):
-	url = requests.get(f"http://3.223.192.184/CPF/api.php?lista={cpf}").text
-	soup = bs(url, 'html.parser')
+	url = requests.get(f"http://api.trackear.com.br/basepv/cpf/{cpf}/noip").json()
 	if url == "":
-		return jsonify({"status": "NÃO VALIDO"})
+		return "{'status': 'NÃO VALIDO'}"
 	else:
-		resul = soup.find("b").text
-		resul = resul.replace("NOME", "").replace("CONSULTADO COM SUCESSO", "").replace("➜", "").replace("|", "").replace("SEXO", "").replace("NASCIMENTO", "").replace(":", "").replace("IDADE", "").replace("CPF", "").replace("DATA DA CONSULTA", "").replace("Seg", "").replace("MASCULINO", "").replace("3", "").replace("2", "").replace("/", "").replace("1", "").replace("4", "").replace("5", "").replace("6", "").replace("7", "").replace("8", "").replace("9", "").replace("FEMININO", "").replace("0", "")
-		return jsonify({"status": "EXISTENTE", "nome": resul})
+		nome = url["nome"]
+		idade = url["idade"]
+		return jsonify({"status": "EXISTENTE", "nome": nome, "idade": idade})
 
 def main():
 	port = int(os.environ.get("PORT", 5000))
