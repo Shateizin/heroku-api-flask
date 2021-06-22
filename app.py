@@ -11,7 +11,7 @@ def consul_cpf(cpf):
 	url = requests.get(f"http://3.223.192.184/CPF/api.php?lista={cpf}").text
 	soup = bs(url, 'html.parser')
 	if url == "":
-		return "{'status': 'NÃO VALIDO'}"
+		return jsonify({"status": "NÃO VALIDO"})
 	else:
 		resul = soup.find("b").text
 		resul = resul.replace("NOME", "").replace("CONSULTADO COM SUCESSO", "").replace("➜", "").replace("|", "").replace("SEXO", "").replace("NASCIMENTO", "").replace(":", "").replace("IDADE", "").replace("CPF", "").replace("DATA DA CONSULTA", "").replace("Seg", "").replace("MASCULINO", "").replace("3", "").replace("2", "").replace("/", "").replace("1", "").replace("4", "").replace("5", "").replace("6", "").replace("7", "").replace("8", "").replace("9", "").replace("FEMININO", "").replace("0", "")
