@@ -9,8 +9,8 @@ CORS(app)
 @app.route('/cp/<string:cpf>/')
 def consul_cpf(cpf):
 	url = requests.get(f"http://api.trackear.com.br/basepv/cpf/{cpf}/noip").json()
-	if url["msg"] == "Formato de CPF invalido!" or url["msg"] == "Sem Resultado!":
-		return "{'status': 'NÃO VALIDO'}"
+	if url["msg"] == "Formato de CPF Invalido!" or url["msg"] == "Sem Resultado!":
+		return jsonify({"status": "INVALIDO"})
 	else:
 		nome = url["nome"]
 		idade = url["idade"]
