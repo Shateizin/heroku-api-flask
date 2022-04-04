@@ -21,6 +21,26 @@ def consul_nft(endereco):
 			nft['nft'].append(nfts)
 	return jsonify(nft)
 	
+@app.route('/solana/<string:address>/')
+def consul_nft(address):
+	url = f"https://nfteyez.global/api/accounts/{address}"
+	ugi = []
+	imagens = []
+	nfts = {}
+	req = requests.get(url)
+	resposta = req.json()
+	for c in resposta:
+		nome = c["name"]
+		update = c["tokenData"]
+		update = update["updateAuthority"]
+		if update in nfts:
+			nfts[update].append(nome)
+		else:
+			nfts[update]  = [nome]
+	return jsonify(nfts)
+	
+
+
 def main():
 	port = int(os.environ.get("PORT", 5000))
 	app.run(host="0.0.0.0", port=port)
