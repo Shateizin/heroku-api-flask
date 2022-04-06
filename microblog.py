@@ -1,4 +1,4 @@
-import __init__
+import rodar
 import os
 
 if __name__== 'main':
