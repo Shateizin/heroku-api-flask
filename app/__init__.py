@@ -1,6 +1,10 @@
-from flask import Flask
-
+import os
+import requests
+from flask import Flask, jsonify
+from bs4 import BeautifulSoup as bs
+from flask_cors import CORS, cross_origin
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/solana/<string:address>/')
 def consul_nft(address):
