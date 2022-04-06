@@ -1,4 +1,4 @@
-from app import app
+import __init__.py
 import os
 
 if __name__== 'main':
