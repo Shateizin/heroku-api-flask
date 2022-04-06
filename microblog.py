@@ -1,4 +1,4 @@
-import __init__.py
+import __init__
 import os
 
 if __name__== 'main':
