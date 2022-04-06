@@ -25,3 +25,34 @@ def consul_nft(address):
 		else:
 			nfts[update]  = [nome]
 	return jsonify(nfts)
+
+
+@app.route('/imagem/<string:tokenide>/')
+def editor_oficial(tokenide):
+
+	url = f"https://api-mainnet.magiceden.dev/v2/tokens/{tokenide}"
+	
+	ak = requests.get(url)
+	res = ak.json()
+	print(res)
+	if 'errors' in res or "status" in res:
+		return "NO"
+	else:
+		imagem = res["image"]
+		if ".gif" in imagem:
+			return "GIF"
+		else:
+			urllib.request.urlretrieve(imagem, f"{tokenide}.png") 
+			img1 = Image.open("quadro.jpg") 
+			img2 = Image.open(f"{tokenide}.png") 
+			img2 = img2.resize((339, 339), Image.ANTIALIAS)
+			img1.paste(img2, (141,131)) 
+			img1.save(f"{tokenide}_final.jpg") 
+			
+			
+			return send_file(f"{tokenide}_final.jpg", mimetype='image/jpg')
+			
+			os.remove(f"{tokenide}.png")
+			os.remove(f"{tokenide}_final.jpg")
+			
+
