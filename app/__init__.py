@@ -1,6 +1,6 @@
 import os
 import requests
-from flask import Flask, jsonify
+from flask import Flask, jsonify, send_file
 from bs4 import BeautifulSoup as bs
 from flask_cors import CORS, cross_origin
 import urllib.request
