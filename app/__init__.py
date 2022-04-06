@@ -26,7 +26,6 @@ def consul_nft(address):
 			nfts[update]  = [nome]
 	return jsonify(nfts)
 
-
 @app.route('/imagem/<string:tokenide>/')
 def editor_oficial(tokenide):
 
@@ -43,13 +42,12 @@ def editor_oficial(tokenide):
 			return "GIF"
 		else:
 			urllib.request.urlretrieve(imagem, f"{tokenide}.png") 
-                        os.system("ls")
+			os.system("ls")
 			img1 = Image.open("quadro.jpg") 
 			img2 = Image.open(f"{tokenide}.png") 
 			img2 = img2.resize((339, 339), Image.ANTIALIAS)
 			img1.paste(img2, (141,131)) 
 			img1.save(f"{tokenide}_final.jpg") 
-			
 			
 			return send_file(f"{tokenide}_final.jpg", mimetype='image/jpg')
 			
