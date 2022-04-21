@@ -8,6 +8,23 @@ from PIL import Image
 app = Flask(__name__)
 CORS(app)
 
+
+@app.route('/nft/<string:endereco>/')
+def consul_nft(endereco):
+	url = f"https://api.nftport.xyz/v0/accounts/{endereco}?chain=polygon"
+	header = {"Content-Type": "application/json", "Authorization": "9e1339fe-e3e2-48b5-811f-2efb37253304"}
+	ak = requests.get(url, headers=header)
+	res = ak.json()
+	res = res['nfts']
+	nft = {'nft': []}
+	for c in res:
+		nfts = c['name']
+		if nfts == "":
+			pass
+		else:
+			nft['nft'].append(nfts)
+	return jsonify(nft)
+
 @app.route('/solana/<string:address>/')
 def consul_nft(address):
 	url = f"https://nfteyez.global/api/accounts/{address}"
